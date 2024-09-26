@@ -1,61 +1,37 @@
-import { Component,OnInit } from '@angular/core';
-import { ApiCallService } from './api-call.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  constructor(private getApi:ApiCallService){}
-  postArray:any=[];
-  ngOnInit(){
+export class AppComponent implements OnInit {
+  title = 'angular-demo';
+  registrationform!: FormGroup;
+  submit='false';
+  constructor(private fb: FormBuilder) {
+
+  }
+  ngOnInit(): void {
+    this.registrationform = this.fb.group({
+      firstName: ['',Validators.required],
+      lastName: ['',Validators.required],
+      phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
+      email: ['',[Validators.required,Validators.email]]
+
+    })
    
-this.getApi.getpost().subscribe((res =>{
-  this.postArray=res
-  console.log(this.postArray)
-}
 
-))
+  }
+  get f(){
+    return this.registrationform.controls;
+  }
+  onsubmit(){
+    this.submit='true'
+    console.log("clicked")
   }
 
-title = 'angular-demo';
-  //Str=""
-  //count=0;
-  //evenorodd="even";
-  //EvenorOdd=""
-  //ishidden=true;
-  /*Functionone(){
-    this.Str="Good Morning!"
-  }
-  Functiontwo(){
-    this.Str="Good Afternoon!"
-  }*/
- /* increment(){
-    this.count+=1;
-    if(this.count%2==0){
-      this.evenorodd="even";
-    }
-    else{
-      this.evenorodd="odd";
-    }
-  }
-  decrement(){
-    this.count-=1;
-    if(this.count%2==0){
-      this.evenorodd="even";
-    }
-    else{
-      this.evenorodd="odd";
-    }
-  }
-check(){
-  this.ishidden=false;
-  if(this.count%2==0)
-  {
-    this.EvenorOdd="even"
-  }
-  else{
-    this.EvenorOdd="odd"
-  }
-}*/
+
+
 }

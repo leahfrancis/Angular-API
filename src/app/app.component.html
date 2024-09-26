@@ -1,34 +1,32 @@
-
-     
-<!--<button (click)="Functionone()" style="text-align: center;">Good morning</button>
-<button (click)="Functiontwo()"style="text-align: center;">Good afternoon</button>
-<div style="text-align: center;">-->
-    <!-- <h2>Count={{count}}</h2>
-    <button (click)="increment()" style="text-align: center;">Increment</button>
-     <button (click)="decrement()" style="text-align: center;">Decrement</button>
-<h2>Count is {{evenorodd}}</h2> 
-<input type="number" [(ngModel)]="count"></div>
-<button (click)="check()">Check</button>
-<h2[hidden]="ishidden">{{count}} is {{EvenorOdd}}</h2>-->
-<!--<table border="1">
-     <thead>
-          <th>Name</th>
-          <th>Price</th></thead>
-          <tbody *ngFor="let item of fruits">
-               <tr>
-               <td>{{item.name}}</td>
-               <td>{{item.price}}</td>
-          </tr>
-     
-</table>-->
-<nav class="navbar bg-body-tertiary">
-     <div >
-       Angular API Calling 
-     <div class="list">
-         <ul *ngFor="let item of postArray">
-          <li>{{item.title}}</li>
-         </ul>
+<h1>Reactive Forms</h1>
+<div class="container-fluid">
+     <form [formGroup]="registrationform" (ngSubmit)="onsubmit()">
+          <label>First Name:</label>
+          <input type="text" class="form-control" placeholder="First Name" formControlName="firstName" [ngClass]="{'is-invalid':submit&&f.firstName.errors}">
+          <div *ngIf="submit&&f.firstName.errors" class="invalid-feedback">
+               <div *ngIf="f.firstName.errors.required">First name is required</div>
           </div>
+          <label>Last Name:</label>
+          <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName" [ngClass]="{'is-invalid':submit&&f.lastName.errors}">
+          <div *ngIf="submit&&f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">Last name is required</div>
      </div>
-   </nav>
-   <router-outlet></router-outlet>
+
+          <label>Phone:</label>
+          <input type="number" class="form-control" placeholder="Phone Number" formControlName="phone" [ngClass]="{'is-invalid':submit&&f.phone.errors}">
+          <div *ngIf="submit&&f.phone.errors" class="invalid-feedback">
+               <div *ngIf="f.phone.errors.required">Phone number is required</div>
+               <div *ngIf="f.phone.errors.pattern">Invalid Phone number</div>
+
+          </div>
+          <label>Email:</label>
+          <input type="email" class="form-control" placeholder="Email Id" formControlName="email" [ngClass]="{'is-invalid':submit&&f.email.errors}" >
+          <div *ngIf="submit&&f.email.errors" class="invalid-feedback">
+               <div *ngIf="f.email.errors.required">Email is required</div>
+               <div *ngIf="f.email.errors.email">Invalid Email Address</div>
+
+          </div>
+
+          <button type="submit" class="btn btn-success">Submit</button>
+     </form>
+</div>
